@@ -1,4 +1,4 @@
-name: Build VedaOS (Testing)
+name: Build Cosmium (Testing)
 on:
   push:
     paths-ignore: # don't rebuild if only documentation has changed

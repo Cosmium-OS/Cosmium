@@ -5,74 +5,8 @@ modules:
       copr:
         - bieszczaders/kernel-cachyos-addons
     install:
-      install-weak-deps: false
       packages:
-        - iwd
-        - adwaita-sans-fonts
-        - ModemManager
-        - NetworkManager-adsl
-        - NetworkManager-openconnect-gnome
-        - NetworkManager-openvpn-gnome
-        - NetworkManager-ppp
-        - NetworkManager-pptp-gnome
-        - NetworkManager-ssh-gnome
-        - NetworkManager-vpnc-gnome
-        - NetworkManager-wwan
-        - NetworkManager-wifi
-        - atheros-firmware
-        - brcmfmac-firmware
-        - iwlegacy-firmware
-        - iwlwifi-dvm-firmware
-        - iwlwifi-mvm-firmware
-        - mt7xxx-firmware
-        - nxpwireless-firmware
-        - realtek-firmware
-        - tiwilink-firmware
-        - adobe-source-code-pro-fonts
-        - avahi
-        - dconf
-        - fprintd-pam
-        - gdm
-        - glib-networking
-        - gnome-backgrounds
-        - gnome-bluetooth
-        - gnome-color-manager
-        - gnome-connections
-        - gnome-control-center
-        - gnome-disk-utility
-        - gnome-epub-thumbnailer
-        - gnome-initial-setup
-        - gnome-remote-desktop
-        - gnome-session-wayland-session
-        - gnome-settings-daemon
-        - gnome-shell
-        - gvfs-afc
-        - gvfs-afp
-        - gvfs-archive
-        - gvfs-fuse
-        - gvfs-goa
-        - gvfs-gphoto2
-        - gvfs-mtp
-        - gvfs-smb
-        - libsane-hpaio
-        - localsearch
-        - mesa-dri-drivers
-        - nautilus
-        - polkit
-        - ptyxis
-        - rygel
-        - sane-backends-drivers-scanners
-        - systemd-oomd-defaults
-        - tinysparql
-        - xdg-desktop-portal
-        - xdg-desktop-portal-gnome
-        - xdg-desktop-portal-gtk
-        - xdg-user-dirs-gtk
         - scx-scheds
-        - flatpak
-        - flatpak-spawn
-        - distrobox
-        - htop
     remove:
       auto-remove: false
       packages:
@@ -86,15 +20,6 @@ modules:
         - kernel-uki-virt
 
   - type: script
-    snippets:
-      - "curl -fsSL https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo | tee /etc/yum.repos.d/terra.repo"
-
-  - type: dnf
-    install:
-      packages:
-        - terra-release
-
-  - type: script
     scripts:
       - bazzite-kernel.sh
 
@@ -102,6 +27,15 @@ modules:
     files:
       - source: system_files/shared
         destination: /
+
+  - type: script
+    snippets:
+      - "curl -fsSL https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo | tee /etc/yum.repos.d/terra.repo"
+
+  - type: dnf
+    install:
+      packages:
+        - terra-release
 
   - type: dnf
     repos:
@@ -115,6 +49,11 @@ modules:
         - steam
         - extest.i686
         - tailscale
+    remove:
+      packages:
+        - firefox
+        - firefox-langpacks
+        - htop
 
   - type: dnf
     repos:
@@ -126,9 +65,6 @@ modules:
         - ublue-os/packages
     install:
       packages:
-        - repo: copr:copr.fedorainfracloud.org:bazzite-org:bazzite
-          packages:
-            - ibus
         - bazaar
         - gamescope.x86_64
         - gamescope-libs.x86_64
@@ -145,8 +81,10 @@ modules:
         - vkBasalt.i686
         - mangohud.x86_64
         - mangohud.i686
-        - desktop-file-utils
-        - python3-gobject
+    replace:
+      - from-repo: copr:copr.fedorainfracloud.org:bazzite-org:bazzite
+        packages:
+          - ibus
 
   - type: script
     snippets:

@@ -1,4 +1,4 @@
-# VedaOS
+# Cosmium
 
 TODO: Rewrite this file. Also thanks to https://github.com/askpng/solarpowered for providing some hack for installing Bazzite kernel!
 

@@ -1,4 +1,4 @@
-name: Build VedaOS
+name: Build Cosmium
 on:
   workflow_dispatch: # allow manually triggering builds
 concurrency:
