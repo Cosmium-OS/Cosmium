@@ -44,7 +44,8 @@ jobs:
         id: generate-flatpak-dir-shortname
         shell: bash
         run: |
-          echo "flatpak-dir-shortname=installer" >> $GITHUB_OUTPUT
+          FLATPAK_DIR_SHORTNAME="installer"
+          echo "flatpak-dir-shortname=$(realpath ${FLATPAK_DIR_SHORTNAME})" >> $GITHUB_OUTPUT
 
       # Docker requires lowercase registry references
       - name: Lowercase Registry
