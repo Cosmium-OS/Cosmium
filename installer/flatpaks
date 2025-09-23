@@ -4,3 +4,5 @@ app/com.github.tchx84.Flatseal/x86_64/stable
 app/com.github.Matoking.protontricks/x86_64/stable
 app/io.github.flattool.Warehouse/x86_64/stable
 app/com.vysp3r.ProtonPlus/x86_64/stable
+runtime/org.gtk.Gtk3theme.adw-gtk3/x86_64/3.22
+runtime/org.gtk.Gtk3theme.adw-gtk3-dark/x86_64/3.22
