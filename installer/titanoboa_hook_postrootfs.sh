@@ -263,7 +263,7 @@ esac
 rm -vf /etc/skel/.config/autostart/steam*.desktop
 
 # Remove packages that shouldnt be used in a live session
-dnf -yq remove steam lutris || :
+dnf -yq remove steam || :
 
 # Enable on-screen keyboard
 #if [[ $imageref == *-deck* ]]; then
@@ -279,7 +279,7 @@ dnf -yq remove steam lutris || :
 #fi
 
 # Let only browser/installer in the dock
-cat >/usr/share/cosmic/com.system76.CosmicAppList/v1/favorites <<EOF
+cat >/home/liveuser/.config/cosmic/com.system76.CosmicAppList/v1/favorites <<EOF
 [
     'liveinst',
     'org.mozilla.firefox',
