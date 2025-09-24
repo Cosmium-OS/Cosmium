@@ -1,47 +1,23 @@
 # Cosmium
 
-TODO: Rewrite this file. Also thanks to https://github.com/askpng/solarpowered for providing some hack for installing Bazzite kernel!
+Note: to test it out on QEMU/Virt-manager, switch display input from Virtio to QXL. (not exclusive to Cosmium btw)
 
-# BlueBuild Template &nbsp; [![bluebuild build badge](https://github.com/blue-build/template/actions/workflows/build.yml/badge.svg)](https://github.com/blue-build/template/actions/workflows/build.yml)
+Latest Live ISO builds (you have to be logged in to GitHub):
+- **Stable**: https://github.com/Cosmium-OS/Cosmium/actions/workflows/build-iso-live.yml?query=is%3Asuccess
+- **Testing (even more updates than stable)**: https://github.com/Cosmium-OS/Cosmium/actions/workflows/build-iso-live-testing.yml?query=is%3Asuccess
 
-See the [BlueBuild docs](https://blue-build.org/how-to/setup/) for quick setup instructions for setting up your own repository based on this template.
+Grab the latest successful artifact for either Desktop or Gaming Handheld Edition (`cosmium` or `cosmium-deck`). No matter for how long those ISOs wasn't updated, you can still perform an update by running `sudo bootc update` no matter what. New builds would be triggered when it is appropriate to do so (like changing branding, new flatpak apps, fixes to Live ISO environment, etc). We're using Universal Blue's [titanoboa](https://github.com/ublue-os/titanoboa) to make this happen :).
 
-After setup, it is recommended you update this README to describe your custom image.
+TODO: 
+- [ ] (Re-)rewrite this file
+- [ ] COSMIC focuses on Steam Keyboard, making it impossible to type from Steam Deck (presense on Gaming Handheld Edition)
+- [ ] ... because of that maybe enable on-screen keyboard that is compatible with COSMIC?
+- [ ] Remove COSMIC Store and replace it with configured Bazaar (we already have both installed, Bazaar isn't configured)
+- [ ] Fix switching to desktop mode on Gaming Handheld Edition
+- [ ] Enable auto-login to Steam Gaming Mode on Gaming Handheld Edition
+- [ ] Switch to Anaconda WebUI when it is stable enough
+- [ ] Add more third-party themes to the system and maybe even widgets
+- [ ] Switch to own underlying image of Fedora COSMIC Atomic when Universal Blue will [deprecated it](https://github.com/ublue-os/main/issues/927) ([`cosmic-atomic-custom`](https://github.com/Cosmium-OS/cosmic-atomic-custom), do it like Winblues does)
+- [ ] Add Nvidia-open variants
 
-## Installation
-
-> [!WARNING]  
-> [This is an experimental feature](https://www.fedoraproject.org/wiki/Changes/OstreeNativeContainerStable), try at your own discretion.
-
-To rebase an existing atomic Fedora installation to the latest build:
-
-- First rebase to the unsigned image, to get the proper signing keys and policies installed:
-  ```
-  rpm-ostree rebase ostree-unverified-registry:ghcr.io/blue-build/template:latest
-  ```
-- Reboot to complete the rebase:
-  ```
-  systemctl reboot
-  ```
-- Then rebase to the signed image, like so:
-  ```
-  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/blue-build/template:latest
-  ```
-- Reboot again to complete the installation
-  ```
-  systemctl reboot
-  ```
-
-The `latest` tag will automatically point to the latest build. That build will still always use the Fedora version specified in `recipe.yml`, so you won't get accidentally updated to the next major version.
-
-## ISO
-
-If build on Fedora Atomic, you can generate an offline ISO with the instructions available [here](https://blue-build.org/learn/universal-blue/#fresh-install-from-an-iso). These ISOs cannot unfortunately be distributed on GitHub for free due to large sizes, so for public projects something else has to be used for hosting.
-
-## Verification
-
-These images are signed with [Sigstore](https://www.sigstore.dev/)'s [cosign](https://github.com/sigstore/cosign). You can verify the signature by downloading the `cosign.pub` file from this repo and running the following command:
-
-```bash
-cosign verify --key cosign.pub ghcr.io/blue-build/template
-```
+Thanks to https://github.com/askpng/solarpowered for providing some hack for installing Bazzite kernel!
