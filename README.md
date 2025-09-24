@@ -1,5 +1,7 @@
 # Cosmium
 
+![Screenshot of Live ISO environment of Cosmium showing an opened window of COSMIC Settings on About page](.github/imgs/screenshot-about.png)
+
 Note: to test it out on QEMU/Virt-manager, switch display input from Virtio to QXL. (not exclusive to Cosmium btw)
 
 Latest Live ISO builds (you have to be logged in to GitHub):
@@ -10,6 +12,7 @@ Grab the latest successful artifact for either Desktop or Gaming Handheld Editio
 
 TODO: 
 - [ ] (Re-)rewrite this file
+- [ ] Fix timezone weirdness on Live ISO env (look up on screenshot)
 - [ ] COSMIC focuses on Steam Keyboard, making it impossible to type from Steam Deck (presense on Gaming Handheld Edition)
 - [ ] ... because of that maybe enable on-screen keyboard that is compatible with COSMIC?
 - [ ] Remove COSMIC Store and replace it with configured Bazaar (we already have both installed, Bazaar isn't configured)
