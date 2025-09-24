@@ -1,4 +1,4 @@
-# Cosmium
+# Cosmium [WIP]
 
 ![Screenshot of Live ISO environment of Cosmium showing an opened window of COSMIC Settings on About page](.github/imgs/screenshot-about.png)
 
@@ -23,5 +23,6 @@ TODO:
 - [ ] Add more third-party themes to the system and maybe even widgets
 - [ ] Switch to own underlying image of Fedora COSMIC Atomic when Universal Blue will [deprecated it](https://github.com/ublue-os/main/issues/927) ([`cosmic-atomic-custom`](https://github.com/Cosmium-OS/cosmic-atomic-custom), do it like Winblues does)
 - [ ] Add Nvidia-open variants
+- [ ] Do a proper branding
 
 Thanks to https://github.com/askpng/solarpowered for providing some hack for installing Bazzite kernel!
