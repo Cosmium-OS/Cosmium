@@ -278,18 +278,14 @@ dnf -yq remove steam lutris || :
 #    fi
 #fi
 
-# Let only browser/installer in the task-bar/dock
-#if [[ $desktop_env == kde ]]; then
-#    sed -i '/<entry name="launchers" type="StringList">/,/<\/entry>/ s/<default>[^<]*<\/default>/<default>preferred:\/\/browser,applications:liveinst.desktop,preferred:\/\/filemanager<\/default>/' \
-#        /usr/share/plasma/plasmoids/org.kde.plasma.taskmanager/contents/config/main.xml
-#elif [[ $desktop_env == gnome ]]; then
-#    cat >/usr/share/glib-2.0/schemas/zz2-org.gnome.shell.gschema.override <<EOF
-#[org.gnome.shell]
-#welcome-dialog-last-shown-version='4294967295'
-#favorite-apps = ['liveinst.desktop', 'org.mozilla.firefox.desktop', 'org.gnome.Nautilus.desktop']
-#EOF
-#    glib-compile-schemas /usr/share/glib-2.0/schemas
-#fi
+# Let only browser/installer in the dock
+cat >/usr/share/cosmic/com.system76.CosmicAppList/v1/favorites <<EOF
+[
+    'liveinst',
+    'org.mozilla.firefox',
+    'com.system76.CosmicFiles',
+]
+EOF
 
 # Add support for controllers
 _tmp=$(mktemp -d)
