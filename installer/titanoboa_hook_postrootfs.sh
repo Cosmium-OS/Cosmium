@@ -279,13 +279,13 @@ dnf -yq remove steam || :
 #fi
 
 # Let only browser/installer in the dock
-cat >/var/home/liveuser/.config/cosmic/com.system76.CosmicAppList/v1/favorites <<EOF
-[
-    'liveinst',
-    'org.mozilla.firefox',
-    'com.system76.CosmicFiles',
-]
-EOF
+#cat >/var/home/liveuser/.config/cosmic/com.system76.CosmicAppList/v1/favorites <<EOF
+#[
+#    'liveinst',
+#    'org.mozilla.firefox',
+#    'com.system76.CosmicFiles',
+#]
+#EOF
 
 # Add support for controllers
 _tmp=$(mktemp -d)
