@@ -25,20 +25,20 @@ dnf5 install -y \
     https://github.com/$GITOWNER/$GITREPO/releases/download/$KERNEL_TAG/kernel-devel-$KERNEL_VERSION.bazzite.fc$OS_VERSION.x86_64.rpm \
     https://github.com/$GITOWNER/$GITREPO/releases/download/$KERNEL_TAG/kernel-devel-matched-$KERNEL_VERSION.bazzite.fc$OS_VERSION.x86_64.rpm
 
-echo 'Downloading ublue-os akmods COPR repo file'
-curl -L https://copr.fedorainfracloud.org/coprs/ublue-os/akmods/repo/fedora-$(rpm -E %fedora)/ublue-os-akmods-fedora-$(rpm -E %fedora).repo -o /etc/yum.repos.d/_copr_ublue-os-akmods.repo
+#echo 'Downloading ublue-os akmods COPR repo file'
+#curl -L https://copr.fedorainfracloud.org/coprs/ublue-os/akmods/repo/fedora-$(rpm -E %fedora)/ublue-os-akmods-fedora-$(rpm -E %fedora).repo -o /etc/yum.repos.d/_copr_ublue-os-akmods.repo
 
 # not really sure if we need this
-echo 'Installing zenergy kmod'
-dnf5 install -y \
-    akmod-zenergy-*.fc$OS_VERSION.x86_64
+#echo 'Installing zenergy kmod'
+#dnf5 install -y \
+#    akmod-zenergy-*.fc$OS_VERSION.x86_64
 
-akmods --force --kernels $KERNEL_VERSION.bazzite.fc$OS_VERSION.x86_64 --kmod zenergy
-modinfo /usr/lib/modules/$KERNEL_VERSION.bazzite.fc$OS_VERSION.x86_64/extra/zenergy/zenergy.ko.xz > /dev/null \
-    || (find /var/cache/akmods/zenergy/ -name \*.log -print -exec cat {} \; && exit 1)
+#akmods --force --kernels $KERNEL_VERSION.bazzite.fc$OS_VERSION.x86_64 --kmod zenergy
+#modinfo /usr/lib/modules/$KERNEL_VERSION.bazzite.fc$OS_VERSION.x86_64/extra/zenergy/zenergy.ko.xz > /dev/null \
+#    || (find /var/cache/akmods/zenergy/ -name \*.log -print -exec cat {} \; && exit 1)
 
-echo 'Removing ublue-os akmods COPR repo file'
-rm /etc/yum.repos.d/_copr_ublue-os-akmods.repo
+#echo 'Removing ublue-os akmods COPR repo file'
+#rm /etc/yum.repos.d/_copr_ublue-os-akmods.repo
 
 echo 'Locking kernel version'
 dnf5 versionlock add kernel kernel-devel kernel-devel-matched kernel-core kernel-modules kernel-modules-core kernel-modules-extra kernel-tools kernel-tools-libs
