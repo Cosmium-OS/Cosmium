@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 # based on https://github.com/askpng/solarpowered/blob/main/files/scripts/base/bazzite.sh
-# NOTE: this script may break sometimes for some obscure reason, so we have to restart the building of the images
 
 set -ouex pipefail
 
@@ -10,7 +9,7 @@ GIT=https://github.com/bazzite-org/kernel-bazzite
 GITOWNER=$(echo "$GIT" | sed -E 's#https://github.com/([^/]+)/([^/]+)(\.git)*#\1#')
 GITREPO=$(echo "$GIT" | sed -E 's#https://github.com/([^/]+)/([^/]+)(\.git)*#\2#')
 
-KERNEL_TAG=$(curl -s https://api.github.com/repos/$GITOWNER/$GITREPO/releases | grep tag_name | cut -d : -f2 | tr -d 'v", ' | grep -Ev '\-[0-9]+\.[0-9]+$' | head -1)
+KERNEL_TAG=$(curl --fail --retry 5 --retry-delay 5 --retry-all-errors -s https://api.github.com/repos/$GITOWNER/$GITREPO/releases | grep tag_name | cut -d : -f2 | tr -d 'v", ' | grep -Ev '\-[0-9]+\.[0-9]+$' | head -1)
 KERNEL_VERSION=$KERNEL_TAG
 OS_VERSION=$(rpm -E %fedora)
 
@@ -27,6 +26,10 @@ dnf5 install -y \
 
 echo 'Downloading ublue-os akmods COPR repo file'
 curl -L https://copr.fedorainfracloud.org/coprs/ublue-os/akmods/repo/fedora-$(rpm -E %fedora)/ublue-os-akmods-fedora-$(rpm -E %fedora).repo -o /etc/yum.repos.d/_copr_ublue-os-akmods.repo
+
+rm -rf /var/tmp
+mkdir -p /var/tmp
+chmod -R 1777 /var/tmp
 
 # not really sure if we need this
 echo 'Installing zenergy kmod'

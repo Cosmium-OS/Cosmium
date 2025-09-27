@@ -3,8 +3,7 @@
 name: cosmium
 description: This is my personal OS image.
 
-base-image: ghcr.io/ublue-os/cosmic-atomic-main
-# TODO: replace base image with upstream
+base-image: ghcr.io/cosmium-os/cosmic-atomic
 image-version: 42
 
 modules:

@@ -21,7 +21,7 @@ TODO:
 - [ ] Enable auto-login to Steam Gaming Mode on Gaming Handheld Edition
 - [ ] Switch to Anaconda WebUI when it is stable enough
 - [ ] Add more third-party themes to the system and maybe even widgets
-- [ ] Switch to own underlying image of Fedora COSMIC Atomic when Universal Blue will [deprecated it](https://github.com/ublue-os/main/issues/927) ([`cosmic-atomic-custom`](https://github.com/Cosmium-OS/cosmic-atomic-custom), do it like Winblues does)
+- [x] Switch to own underlying image of Fedora COSMIC Atomic ~~when Universal Blue will [deprecated it](https://github.com/ublue-os/main/issues/927)~~ ([`cosmic-atomic-custom`](https://github.com/Cosmium-OS/cosmic-atomic-custom), do it like Winblues does)
 - [ ] Add Nvidia-open variants
 - [ ] Do a proper branding
 - [ ] Figure out secure boot and kernel signing
