@@ -1,0 +1,10 @@
+[Unit]
+Description=Enables Cosmium autologin
+Before=display-manager.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/cosmium-autologin
+
+[Install]
+WantedBy=multi-user.target

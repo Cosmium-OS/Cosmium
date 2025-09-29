@@ -62,14 +62,15 @@ modules:
             - gamescope-session-plus
             - gamescope-session-steam
 
-  - type: systemd
-    system:
-      enabled:
-        - sddm.service
-      disabled:
-        - cosmic-greeter.service
-
   - type: files
     files:
       - source: system_files/deck
         destination: /
+
+  - type: systemd
+    system:
+      enabled:
+        - sddm.service
+        - cosmium-autologin.service
+      disabled:
+        - cosmic-greeter.service
