@@ -18,7 +18,7 @@ TODO:
 - [ ] ... because of that maybe enable on-screen keyboard that is compatible with COSMIC?
 - [ ] Remove COSMIC Store and replace it with configured Bazaar (we already have both installed, Bazaar isn't configured)
 - [ ] Fix switching to desktop mode on Gaming Handheld Edition
-- [ ] Enable auto-login to Steam Gaming Mode on Gaming Handheld Edition
+- [x] Enable auto-login to Steam Gaming Mode on Gaming Handheld Edition
 - [ ] Switch to Anaconda WebUI when it is stable enough
 - [ ] Add more third-party themes to the system and maybe even widgets
 - [x] Switch to own underlying image of Fedora COSMIC Atomic ~~when Universal Blue will [deprecated it](https://github.com/ublue-os/main/issues/927)~~ ([`cosmic-atomic-custom`](https://github.com/Cosmium-OS/cosmic-atomic-custom), do it like Winblues does)
