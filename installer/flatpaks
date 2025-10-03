@@ -9,5 +9,6 @@ app/com.jwestall.Forecast/x86_64/stable
 app/best.ellie.StartupConfiguration/x86_64/stable
 app/io.github.cosmic_utils.Examine/x86_64/stable
 app/dev.edfloreshz.CosmicTweaks/x86_64/stable
+app/io.github.kolunmi.Bazaar/x86_64/stable
 runtime/org.gtk.Gtk3theme.adw-gtk3/x86_64/3.22
 runtime/org.gtk.Gtk3theme.adw-gtk3-dark/x86_64/3.22

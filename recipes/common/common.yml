@@ -54,6 +54,7 @@ modules:
         - firefox
         - firefox-langpacks
         - htop
+        - cosmic-store
 
   - type: dnf
     repos:
@@ -65,7 +66,6 @@ modules:
         - ublue-os/packages
     install:
       packages:
-        - bazaar
         - gamescope.x86_64
         - gamescope-libs.x86_64
         - gamescope-libs.i686

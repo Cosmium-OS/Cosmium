@@ -16,7 +16,7 @@ TODO:
 - [ ] Change favorite apps on dock for Live ISO environment (I have to fork livesys pkg probably)
 - [ ] COSMIC focuses on Steam Keyboard, making it impossible to type from Steam Deck (presense on Gaming Handheld Edition)
 - [ ] ... because of that maybe enable on-screen keyboard that is compatible with COSMIC?
-- [ ] Remove COSMIC Store and replace it with configured Bazaar (we already have both installed, Bazaar isn't configured)
+- [x] Remove COSMIC Store and replace it with configured Bazaar (~~we already have both installed,~~ Bazaar is still not configured)
 - [ ] Fix switching to desktop mode on Gaming Handheld Edition
 - [x] Enable auto-login to Steam Gaming Mode on Gaming Handheld Edition
 - [ ] Switch to Anaconda WebUI when it is stable enough
