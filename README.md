@@ -1,6 +1,6 @@
 # Cosmium [WIP]
 
-![Screenshot of Live ISO environment of Cosmium showing an opened window of Examine app](.github/imgs/screenshot-about.png)
+![Screenshot of Live ISO environment of Cosmium showing an opened window of Examine app and Welcome dialog](.github/imgs/screenshot-about.png)
 
 Note: to test it out on QEMU/Virt-manager, switch display input from Virtio to QXL. (not exclusive to Cosmium btw)
 
