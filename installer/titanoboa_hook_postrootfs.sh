@@ -334,3 +334,6 @@ rm -rf "$_tmp"
 unset -v _tmp
 
 ###############################
+
+# Install gparted. gnome-shell happens to provide PolicyKit-authentication-agent, so xfce-polkit it is
+dnf5 install -y gparted xfce-polkit
