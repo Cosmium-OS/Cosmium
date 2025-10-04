@@ -243,6 +243,30 @@ EOF
     done
 )
 
+# Setup script to show dialog popups at login
+echo '#!/usr/bin/bash' >/usr/bin/on_gui_login.sh
+chmod +x /usr/bin/on_gui_login.sh
+mkdir -p /etc/skel/.config/autostart
+cat >/etc/skel/.config/autostart/on_gui_login.desktop <<'EOF'
+[Desktop Entry]
+Exec=/usr/bin/on_gui_login.sh
+Icon=application-x-shellscript
+Type=Application
+EOF
+
+# Open a welcome window with opening live installer
+cat >>/usr/bin/on_gui_login.sh <<'EOF'
+yad --center \
+    --timeout=0 \
+    --on-top \
+    --text-align=center \
+    --title="Welcome" \
+    --text="\nWelcome to the Live ISO for Cosmium\!\n\nThe Live ISO is designed for installation and troubleshooting.\nBecause of this, it is <b>not capable of playing games.</b>\n\nPlease do not use it for benchmarks as it\ndoes not represent the installed experience.\n\nClick on <b>'Install'</b> to begin installation process now.\nYou can always start the installer by opening 'Install to Hard Drive' application.\n" \
+    --button="Install":"liveinst" \
+    --button="Exit":0 \
+    || :
+EOF
+
 ### Desktop-enviroment specific tweaks ###
 
 # Determine desktop environment. Must match one of /usr/libexec/livesys/sessions.d/livesys-{desktop_env}
@@ -279,13 +303,14 @@ dnf -yq remove steam || :
 #fi
 
 # Let only browser/installer in the dock
-#cat >/var/home/liveuser/.config/cosmic/com.system76.CosmicAppList/v1/favorites <<EOF
-#[
-#    'liveinst',
-#    'org.mozilla.firefox',
-#    'com.system76.CosmicFiles',
-#]
-#EOF
+mkdir -p /etc/skel/.config/cosmic/com.system76.CosmicAppList/v1
+cat >/etc/skel/.config/cosmic/com.system76.CosmicAppList/v1/favorites <<EOF
+[
+    'liveinst',
+    'org.mozilla.firefox',
+    'com.system76.CosmicFiles',
+]
+EOF
 
 # Add support for controllers
 _tmp=$(mktemp -d)
