@@ -261,10 +261,12 @@ yad --center \
     --on-top \
     --text-align=center \
     --title="Welcome" \
-    --text="\nWelcome to the Live ISO for Cosmium\!\n\nThe Live ISO is designed for installation and troubleshooting.\nBecause of this, it is <b>not capable of playing games.</b>\n\nPlease do not use it for benchmarks as it\ndoes not represent the installed experience.\n\nClick on <b>'Install'</b> to begin installation process now.\nYou can always start the installer by opening 'Install to Hard Drive' application.\n" \
-    --button="Install":"liveinst" \
+    --text="\nWelcome to the Live ISO for Cosmium\!\n\nThe Live ISO is designed for installation and troubleshooting.\nBecause of this, it is <b>not capable of playing games.</b>\n\nPlease do not use it for benchmarks as it\ndoes not represent the installed experience.\n\nClick on <b>'Install'</b> to begin installation process now.\n\nYou can always start the installer by\nopening 'Install to Hard Drive' application.\n" \
+    --button="Install":1 \
     --button="Exit":0 \
-    || :
+
+[[ $? -eq 1 ]] && liveinst && exit 0
+[[ $? -eq 0 ]] && exit 0
 EOF
 
 ### Desktop-enviroment specific tweaks ###
@@ -303,14 +305,7 @@ dnf -yq remove steam || :
 #fi
 
 # Let only browser/installer in the dock
-mkdir -p /etc/skel/.config/cosmic/com.system76.CosmicAppList/v1
-cat >/etc/skel/.config/cosmic/com.system76.CosmicAppList/v1/favorites <<EOF
-[
-    'liveinst',
-    'org.mozilla.firefox',
-    'com.system76.CosmicFiles',
-]
-EOF
+sed -i '/com\.system76\.CosmicEdit/d; /com\.system76\.CosmicTerm/d; /com\.system76\.CosmicStore/d; /com\.system76\.CosmicSettings/d' /usr/libexec/livesys/sessions.d/livesys-cosmic
 
 # Add support for controllers
 _tmp=$(mktemp -d)
