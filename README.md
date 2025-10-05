@@ -13,9 +13,8 @@ Grab the latest successful artifact for either Desktop or Gaming Handheld Editio
 TODO: 
 - [ ] (Re-)rewrite this file
 - [x] Fix timezone weirdness on Live ISO environment (it fixed itself apparently)
-- [ ] Change favorite apps on dock for Live ISO environment (I have to fork livesys pkg probably)
-- [ ] COSMIC focuses on Steam Keyboard, making it impossible to type from Steam Deck (presense on Gaming Handheld Edition)
-- [ ] ... because of that maybe enable on-screen keyboard that is compatible with COSMIC?
+- [x] Change favorite apps on dock for Live ISO environment
+- [ ] COSMIC focuses on Steam Keyboard, making it impossible to type from Steam Deck, maybe enable on-screen keyboard that is compatible with COSMIC? (presense on Gaming Handheld Edition)
 - [x] Remove COSMIC Store and replace it with configured Bazaar (~~we already have both installed,~~ Bazaar is still not configured)
 - [ ] Fix switching to desktop mode on Gaming Handheld Edition
 - [x] Enable auto-login to Steam Gaming Mode on Gaming Handheld Edition
