@@ -71,6 +71,6 @@ modules:
     system:
       enabled:
         - sddm.service
-        - cosmium-autologin.service
+        #- cosmium-autologin.service
       disabled:
         - cosmic-greeter.service

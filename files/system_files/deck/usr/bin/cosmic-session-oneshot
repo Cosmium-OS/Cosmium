@@ -26,7 +26,7 @@ function check_sentinel()
     cd "$HOME"
     cd "$config_dir"
     sentinel_value="$(cat "$SENTINEL_FILE")"
-    if [[ "$sentinel_value" == "wayland" ]]; then
+    if [[ "$sentinel_value" == "x11" || "$sentinel_value" == "wayland" ]]; then
       echo "/usr/bin/start-cosmic"
     else
       return 1
