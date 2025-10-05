@@ -2,13 +2,13 @@
 
 ![Screenshot of Live ISO environment of Cosmium showing an opened window of Examine app and Welcome dialog](.github/imgs/screenshot-about.png)
 
-Note: to test it out on QEMU/Virt-manager, switch display input from Virtio to QXL. (not exclusive to Cosmium btw)
+Note: to test it out on QEMU/Virt-manager, switch display input from Virtio to QXL. (not exclusive to Cosmium)
 
-Latest Live ISO builds (you have to be logged in to GitHub):
+Latest Live ISO builds:
 - **Stable**: https://github.com/Cosmium-OS/Cosmium/actions/workflows/build-iso-live.yml?query=is%3Asuccess
 - **Testing** (even more updates than stable): https://github.com/Cosmium-OS/Cosmium/actions/workflows/build-iso-live-testing.yml?query=is%3Asuccess
 
-Grab the latest successful artifact for either Desktop or Gaming Handheld Edition (`cosmium` or `cosmium-deck`). No matter for how long those ISOs wasn't updated, you can still perform an update by running `sudo bootc update` no matter what. New builds would be triggered when it is appropriate to do so (like changing branding, new flatpak apps, fixes to Live ISO environment, etc). We're using Universal Blue's [titanoboa](https://github.com/ublue-os/titanoboa) to make this happen :).
+Grab the latest successful artifact for either Desktop or Gaming Handheld Edition (`cosmium` or `cosmium-deck`). To download an artifact without logging in to GitHub, you can replace `github.com` to `nightly.link` in URL. No matter for how long those ISOs wasn't updated, you can still perform an update by running `sudo bootc update` no matter what. New builds would be triggered when it is appropriate to do so (like changing branding, new flatpak apps, fixes to Live ISO environment, etc). We're using Universal Blue's [titanoboa](https://github.com/ublue-os/titanoboa) to make this happen :).
 
 TODO: 
 - [ ] (Re-)rewrite this file
