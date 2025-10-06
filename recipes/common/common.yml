@@ -45,6 +45,9 @@ modules:
         - bazzite-org/bazzite
         - bazzite-org/bazzite-multilib
         - ublue-os/staging
+    install:
+      packages:
+        - mesa-va-drivers.i686
     replace:
       - from-repo: copr:copr.fedorainfracloud.org:bazzite-org:bazzite
         packages:
@@ -74,7 +77,6 @@ modules:
       nonfree: rpmfusion
     install:
       packages:
-        - mesa-va-drivers.i686
         - libaacs
         - libbdplus
         - libbluray
