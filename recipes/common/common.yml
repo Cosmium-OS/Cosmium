@@ -70,10 +70,6 @@ modules:
   - type: dnf
     repos:
       cleanup: true
-      copr:
-        - bazzite-org/bazzite
-        - bazzite-org/bazzite-multilib
-        - ublue-os/staging
       nonfree: rpmfusion
     install:
       packages:
