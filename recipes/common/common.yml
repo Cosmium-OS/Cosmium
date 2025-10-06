@@ -30,7 +30,7 @@ modules:
 
   - type: script
     snippets:
-      - "curl -fsSL https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo | tee /etc/yum.repos.d/terra.repo"
+      - "curl --retry 3 -fsSL https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo | tee /etc/yum.repos.d/terra.repo"
 
   - type: dnf
     install:
@@ -47,7 +47,9 @@ modules:
         - ublue-os/staging
     install:
       packages:
-        - mesa-va-drivers.i686
+        - repo: terra-mesa
+          packages:
+            - mesa-va-drivers.i686
     replace:
       - from-repo: copr:copr.fedorainfracloud.org:bazzite-org:bazzite
         packages:
@@ -91,8 +93,10 @@ modules:
     install:
       install-weak-deps: false
       packages:
-        - steam
-        - extest.i686
+        - repo: fedora-steam
+          packages:
+            - steam
+            - extest.i686
         - tailscale
     remove:
       packages:
@@ -136,3 +140,6 @@ modules:
   - type: script
     snippets:
       - "dnf5 versionlock add ibus"
+      - "mkdir -p /etc/skel/.config/autostart"
+      - "cp /usr/share/applications/steam.desktop /etc/skel/.config/autostart/steam.desktop"
+      - "sed -i 's@/usr/bin/steam@/usr/bin/cosmium-steam -silent@g' /etc/skel/.config/autostart/steam.desktop"
