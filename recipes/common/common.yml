@@ -96,7 +96,7 @@ modules:
         - repo: fedora-steam
           packages:
             - steam
-            - extest.i686
+        - extest.i686
         - tailscale
     remove:
       packages:
