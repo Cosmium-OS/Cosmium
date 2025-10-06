@@ -50,6 +50,8 @@ modules:
         - repo: terra-mesa
           packages:
             - mesa-va-drivers.i686
+            - mesa-va-drivers.x86_64
+        - https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-%OS_VERSION%.noarch.rpm
     replace:
       - from-repo: copr:copr.fedorainfracloud.org:bazzite-org:bazzite
         packages:
@@ -62,27 +64,25 @@ modules:
       - from-repo: terra-extras
         packages:
           - switcheroo-control
-      - from-repo: terra-mesa
-        packages:
-          - mesa-filesystem
       - from-repo: copr:copr.fedorainfracloud.org:ublue-os:staging
         packages:
           - fwupd
 
   - type: dnf
-    repos:
-      cleanup: true
-      nonfree: rpmfusion
     install:
       packages:
-        - libaacs
-        - libbdplus
-        - libbluray
-        - libbluray-utils
+        - repo: rpmfusion-free
+          packages:
+            - libaacs
+            - libbdplus
+            - libbluray
+            - libbluray-utils
   
   - type: script
     snippets:
       - "dnf5 versionlock add pipewire pipewire-alsa pipewire-gstreamer pipewire-jack-audio-connection-kit pipewire-jack-audio-connection-kit-libs pipewire-libs pipewire-plugin-libcamera pipewire-pulseaudio pipewire-utils wireplumber wireplumber-libs bluez bluez-cups bluez-libs bluez-obexd xorg-x11-server-Xwayland switcheroo-control mesa-dri-drivers mesa-filesystem mesa-libEGL mesa-libGL mesa-libgbm mesa-va-drivers mesa-vulkan-drivers fwupd fwupd-plugin-flashrom fwupd-plugin-modem-manager fwupd-plugin-uefi-capsule-data"
+      - "dnf5 -y config-manager setopt '*terra*'.exclude='steam'"
+      - "dnf5 -y config-manager setopt 'fedora-multimedia'.exclude='steam'"
 
   - type: dnf
     repos:
@@ -93,9 +93,7 @@ modules:
     install:
       install-weak-deps: false
       packages:
-        - repo: fedora-steam
-          packages:
-            - steam
+        - steam
         - extest.i686
         - tailscale
     remove:
@@ -106,6 +104,7 @@ modules:
         - cosmic-store
         - ublue-os-update-services
         - gamemode
+        - rpmfusion-free-release
 
   - type: dnf
     repos:
