@@ -36,6 +36,53 @@ modules:
     install:
       packages:
         - terra-release
+        - terra-release-extras
+
+  - type: dnf
+    repos:
+      cleanup: true
+      copr:
+        - bazzite-org/bazzite
+        - bazzite-org/bazzite-multilib
+        - ublue-os/staging
+    replace:
+      - from-repo: copr:copr.fedorainfracloud.org:bazzite-org:bazzite
+        packages:
+          - wireplumber
+      - from-repo: copr:copr.fedorainfracloud.org:bazzite-org:bazzite-multilib
+        packages:
+          - pipewire
+          - bluez
+          - xorg-x11-server-Xwayland
+      - from-repo: terra-extras
+        packages:
+          - switcheroo-control
+      - from-repo: terra-mesa
+        packages:
+          - mesa-filesystem
+      - from-repo: copr:copr.fedorainfracloud.org:ublue-os:staging
+        packages:
+          - fwupd
+
+  - type: dnf
+    repos:
+      cleanup: true
+      copr:
+        - bazzite-org/bazzite
+        - bazzite-org/bazzite-multilib
+        - ublue-os/staging
+      nonfree: rpmfusion
+    install:
+      packages:
+        - mesa-va-drivers.i686
+        - libaacs
+        - libbdplus
+        - libbluray
+        - libbluray-utils
+  
+  - type: script
+    snippets:
+      - "dnf5 versionlock add pipewire pipewire-alsa pipewire-gstreamer pipewire-jack-audio-connection-kit pipewire-jack-audio-connection-kit-libs pipewire-libs pipewire-plugin-libcamera pipewire-pulseaudio pipewire-utils wireplumber wireplumber-libs bluez bluez-cups bluez-libs bluez-obexd xorg-x11-server-Xwayland switcheroo-control mesa-dri-drivers mesa-filesystem mesa-libEGL mesa-libGL mesa-libgbm mesa-va-drivers mesa-vulkan-drivers fwupd fwupd-plugin-flashrom fwupd-plugin-modem-manager fwupd-plugin-uefi-capsule-data"
 
   - type: dnf
     repos:
@@ -55,6 +102,8 @@ modules:
         - firefox-langpacks
         - htop
         - cosmic-store
+        - ublue-os-update-services
+        - gamemode
 
   - type: dnf
     repos:
