@@ -71,12 +71,10 @@ modules:
   - type: dnf
     install:
       packages:
-        - repo: rpmfusion-free
-          packages:
-            - libaacs
-            - libbdplus
-            - libbluray
-            - libbluray-utils
+        - libaacs
+        - libbdplus
+        - libbluray
+        - libbluray-utils
   
   - type: script
     snippets:
