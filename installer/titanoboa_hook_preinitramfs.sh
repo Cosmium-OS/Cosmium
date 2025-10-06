@@ -14,6 +14,8 @@ kernel_pkgs=(
     kernel-modules
     kernel-modules-core
     kernel-modules-extra
+    akmod-zenergy
+    zenergy
 )
 dnf -y versionlock delete "${kernel_pkgs[@]}"
 rpm --erase -v --nodeps "${kernel_pkgs[@]}"
