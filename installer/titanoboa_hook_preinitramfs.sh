@@ -16,7 +16,7 @@ kernel_pkgs=(
     kernel-modules-extra
 )
 dnf -y versionlock delete "${kernel_pkgs[@]}"
-rpm --erase -v --nodeps "${kernel_pkgs[@]}" akmod-zenergy zenergy
+rpm --erase -v --nodeps "${kernel_pkgs[@]}"
 dnf -yq install "${kernel_pkgs[@]}"
 
 imageref="$(podman images --format '{{ index .Names 0 }}\n' 'cosmium*' | head -1)"
