@@ -52,7 +52,7 @@ modules:
             - libaacs
             - libbdplus
             - libbluray
-            - libbluray-utils
+        - libbluray-utils
     replace:
       - from-repo: copr:copr.fedorainfracloud.org:bazzite-org:bazzite
         packages:
