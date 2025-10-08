@@ -47,8 +47,10 @@ modules:
         - ublue-os/staging
     install:
       packages:
-        - mesa-va-drivers.i686
-        - mesa-vulkan-drivers.i686
+        - repo: terra-mesa
+          packages:
+            - mesa-va-drivers.i686
+            - mesa-vulkan-drivers.i686
         - https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-%OS_VERSION%.noarch.rpm
     replace:
       - from-repo: copr:copr.fedorainfracloud.org:bazzite-org:bazzite
@@ -59,10 +61,6 @@ modules:
           - pipewire
           - bluez
           - xorg-x11-server-Xwayland
-      - from-repo: terra-mesa
-        packages:
-          - mesa-filesystem
-          - mesa-vulkan-drivers.i686
       - from-repo: terra-extras
         packages:
           - switcheroo-control
