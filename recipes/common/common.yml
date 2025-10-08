@@ -32,11 +32,6 @@ modules:
       - "dnf5 -y config-manager setopt 'terra-nvidia'.enabled=false"
       - "dnf5 -y config-manager setopt '*rpmfusion*'.priority=5 '*rpmfusion*'.exclude='mesa-*'"
 
-  - type: files
-    files:
-      - source: system_files/shared
-        destination: /
-
   - type: dnf
     repos:
       cleanup: true
@@ -135,3 +130,8 @@ modules:
       - "mkdir -p /etc/skel/.config/autostart"
       - "cp /usr/share/applications/steam.desktop /etc/skel/.config/autostart/steam.desktop"
       - "sed -i 's@/usr/bin/steam@/usr/bin/cosmium-steam -silent@g' /etc/skel/.config/autostart/steam.desktop"
+
+  - type: files
+    files:
+      - source: system_files/shared
+        destination: /

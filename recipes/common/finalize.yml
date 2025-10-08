@@ -3,7 +3,6 @@ modules:
     snippets:
       - "sed -i 's@/usr/bin/steam@/usr/bin/cosmium-steam@g' /usr/share/applications/steam.desktop"
       - "dnf5 -y remove terra-release terra-release-extras"
-      - "rm /etc/yum.repos.d/terra*"
       - "dnf5 clean all"
       - "rm -rf /tmp/* || true"
 
