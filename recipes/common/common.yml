@@ -25,7 +25,7 @@ modules:
     snippets:
       - "dnf5 -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release{,-extras}"
       - "dnf5 -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm"
-      - "dnf5 -y config-manager setopt '*fedora*'.exclude='mesa-*'"
+      - "dnf5 -y config-manager setopt '*fedora*'.exclude='mesa-* steam'"
       - "dnf5 -y config-manager setopt '*staging*'.exclude='mesa*'"
       - "dnf5 -y config-manager setopt '*terra*'.priority=3 '*terra*'.exclude='nerd-fonts topgrade steam'"
       - "dnf5 -y config-manager setopt 'terra-mesa'.enabled=true"
