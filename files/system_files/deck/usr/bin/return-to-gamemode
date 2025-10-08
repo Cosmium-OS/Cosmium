@@ -1,0 +1,19 @@
+#!/usr/bin/bash
+
+USER=$(id -nu 1000)
+HOME=$(getent passwd $USER | cut -d: -f6)
+
+# SteamOS autologin SDDM config
+AUTOLOGIN_CONF='/etc/sddm.conf.d/zz-steamos-autologin.conf'
+
+# Configure autologin if Steam has been updated
+if [[ -f $HOME/.local/share/Steam/ubuntu12_32/steamui.so ]]; then
+  {
+    echo "[Autologin]"
+    echo "Session=gamescope-session.desktop"
+  } > "$AUTOLOGIN_CONF"
+fi
+
+# shows logout prompt with 1 minute timeout that can't be changed.
+# not ideal, but at least that's something.
+sudo -Eu $USER cosmic-osd log-out
