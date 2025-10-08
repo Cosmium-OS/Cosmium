@@ -39,6 +39,7 @@ modules:
     remove:
       packages:
         - jupiter-sd-mounting-btrfs # so it won't conflict with jupiter-hw-support-btrfs
+        - cosmic-greeter
     replace:
       - from-repo: copr:copr.fedorainfracloud.org:bazzite-org:bazzite
         packages:
@@ -64,5 +65,3 @@ modules:
       enabled:
         - sddm.service
         - cosmium-autologin.service
-      disabled:
-        - cosmic-greeter.service
