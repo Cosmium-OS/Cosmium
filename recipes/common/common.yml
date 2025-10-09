@@ -10,7 +10,8 @@ modules:
       - "dnf5 -y config-manager setopt '*terra*'.priority=3 '*terra*'.exclude='nerd-fonts topgrade steam'"
       - "dnf5 -y config-manager setopt 'terra-mesa'.enabled=true"
       - "dnf5 -y config-manager setopt 'terra-nvidia'.enabled=false"
-      - "dnf5 -y config-manager setopt '*rpmfusion*'.priority=5 '*rpmfusion*'.exclude='*' '*rpmfusion*'.include='libaacs libbdplus'"
+      - "dnf5 -y config-manager setopt '*rpmfusion*'.priority=5 '*rpmfusion*'.exclude='mesa-*'"
+      - "dnf5 -y install libaacs libbdplus"
 
   - type: dnf
     repos:
@@ -44,10 +45,6 @@ modules:
         - vkBasalt.i686
         - mangohud.x86_64
         - mangohud.i686
-        - repo: rpmfusion-free
-          packages:
-            - libaacs
-            - libbdplus
         - libbluray-utils
         - mesa-va-drivers.i686
     replace:
@@ -74,6 +71,7 @@ modules:
         - firefox-langpacks
         - cosmic-store
         - ublue-os-update-services
+        - rpmfusion-free-release
   
   - type: script
     snippets:
