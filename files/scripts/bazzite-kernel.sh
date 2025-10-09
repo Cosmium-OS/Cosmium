@@ -3,6 +3,26 @@
 
 set -ouex pipefail
 
+echo 'Removing existing kernel from the image.'
+dnf5 remove -y --no-autoremove \
+    kernel \
+    kernel-core \
+    kernel-modules \
+    kernel-modules-core \
+    kernel-modules-extra \
+    kernel-tools \
+    kernel-tools-libs \
+    kernel-uki-virt
+
+echo 'Downloading kernel-cachyos-addons COPR repo file'
+curl --retry 5 -L https://copr.fedorainfracloud.org/coprs/bieszczaders/kernel-cachyos-addons/repo/fedora-$(rpm -E %fedora)/bieszczaders-kernel-cachyos-addons-fedora-$(rpm -E %fedora).repo -o /etc/yum.repos.d/_copr_bieszczaders-kernel-cachyos-addons.repo
+
+echo 'Installing scx-scheds pkg'
+dnf5 install -y scx-scheds
+
+echo 'Removing kernel-cachyos-addons COPR repo file'
+rm /etc/yum.repos.d/_copr_bieszczaders-kernel-cachyos-addons.repo
+
 rm -drf /usr/lib/modules/*
 
 GIT=https://github.com/bazzite-org/kernel-bazzite
@@ -25,7 +45,7 @@ dnf5 install -y \
     https://github.com/$GITOWNER/$GITREPO/releases/download/$KERNEL_TAG/kernel-devel-matched-$KERNEL_VERSION.bazzite.fc$OS_VERSION.x86_64.rpm
 
 echo 'Downloading ublue-os akmods COPR repo file'
-curl -L https://copr.fedorainfracloud.org/coprs/ublue-os/akmods/repo/fedora-$(rpm -E %fedora)/ublue-os-akmods-fedora-$(rpm -E %fedora).repo -o /etc/yum.repos.d/_copr_ublue-os-akmods.repo
+curl --retry 5 -L https://copr.fedorainfracloud.org/coprs/ublue-os/akmods/repo/fedora-$(rpm -E %fedora)/ublue-os-akmods-fedora-$(rpm -E %fedora).repo -o /etc/yum.repos.d/_copr_ublue-os-akmods.repo
 
 rm -rf /var/tmp
 mkdir -p /var/tmp

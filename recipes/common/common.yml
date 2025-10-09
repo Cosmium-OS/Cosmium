@@ -1,24 +1,4 @@
 modules:
-  - type: dnf
-    repos:
-      cleanup: true
-      copr:
-        - bieszczaders/kernel-cachyos-addons
-    install:
-      packages:
-        - scx-scheds
-    remove:
-      auto-remove: false
-      packages:
-        - kernel
-        - kernel-core
-        - kernel-modules
-        - kernel-modules-core
-        - kernel-modules-extra
-        - kernel-tools
-        - kernel-tools-libs
-        - kernel-uki-virt
-
   - type: script
     scripts:
       - bazzite-kernel.sh
@@ -30,7 +10,7 @@ modules:
       - "dnf5 -y config-manager setopt '*terra*'.priority=3 '*terra*'.exclude='nerd-fonts topgrade steam'"
       - "dnf5 -y config-manager setopt 'terra-mesa'.enabled=true"
       - "dnf5 -y config-manager setopt 'terra-nvidia'.enabled=false"
-      - "dnf5 -y config-manager setopt '*rpmfusion*'.priority=5 '*rpmfusion*'.exclude='mesa-*'"
+      - "dnf5 -y config-manager setopt '*rpmfusion*'.priority=5 '*rpmfusion*'.exclude='*' '*rpmfusion*'.include='libaacs libbdplus'"
 
   - type: dnf
     repos:
@@ -39,47 +19,6 @@ modules:
         - bazzite-org/bazzite
         - bazzite-org/bazzite-multilib
         - ublue-os/staging
-    install:
-      packages:
-        - mesa-va-drivers.i686
-        - repo: rpmfusion-free
-          packages:
-            - libaacs
-            - libbdplus
-            - libbluray
-        - libbluray-utils
-    replace:
-      - from-repo: copr:copr.fedorainfracloud.org:bazzite-org:bazzite
-        packages:
-          - wireplumber
-      - from-repo: copr:copr.fedorainfracloud.org:bazzite-org:bazzite-multilib
-        packages:
-          - pipewire
-          - bluez
-          - xorg-x11-server-Xwayland
-      - from-repo: terra-mesa
-        packages:
-          - mesa-filesystem
-      - from-repo: terra-extras
-        packages:
-          - switcheroo-control
-      - from-repo: copr:copr.fedorainfracloud.org:ublue-os:staging
-        packages:
-          - fwupd
-    remove:
-      packages:
-        - firefox
-        - firefox-langpacks
-        - cosmic-store
-        - ublue-os-update-services
-  
-  - type: script
-    snippets:
-      - "dnf5 versionlock add pipewire pipewire-alsa pipewire-gstreamer pipewire-jack-audio-connection-kit pipewire-jack-audio-connection-kit-libs pipewire-libs pipewire-plugin-libcamera pipewire-pulseaudio pipewire-utils wireplumber wireplumber-libs bluez bluez-cups bluez-libs bluez-obexd xorg-x11-server-Xwayland switcheroo-control mesa-dri-drivers mesa-filesystem mesa-libEGL mesa-libGL mesa-libgbm mesa-va-drivers mesa-vulkan-drivers fwupd fwupd-plugin-flashrom fwupd-plugin-modem-manager fwupd-plugin-uefi-capsule-data"
-
-  - type: dnf
-    repos:
-      cleanup: true
       files:
         - https://negativo17.org/repos/fedora-steam.repo
         - https://pkgs.tailscale.com/stable/fedora/tailscale.repo
@@ -89,20 +28,6 @@ modules:
         - steam
         - extest.i686
         - tailscale
-    remove:
-      packages:
-        - rpmfusion-free-release
-
-  - type: dnf
-    repos:
-      cleanup: true
-      copr:
-        - bazzite-org/bazzite
-        - bazzite-org/bazzite-multilib
-        - ublue-os/staging
-        - ublue-os/packages
-    install:
-      packages:
         - steamdeck-backgrounds
         - gamescope.x86_64
         - gamescope-libs.x86_64
@@ -119,17 +44,44 @@ modules:
         - vkBasalt.i686
         - mangohud.x86_64
         - mangohud.i686
+        - repo: rpmfusion-free
+          packages:
+            - libaacs
+            - libbdplus
+        - libbluray-utils
+        - mesa-va-drivers.i686
     replace:
       - from-repo: copr:copr.fedorainfracloud.org:bazzite-org:bazzite
         packages:
+          - wireplumber
+      - from-repo: copr:copr.fedorainfracloud.org:bazzite-org:bazzite-multilib
+        packages:
+          - pipewire
+          - bluez
+          - xorg-x11-server-Xwayland
+      - from-repo: terra-extras
+        packages:
+          - switcheroo-control
+      - from-repo: copr:copr.fedorainfracloud.org:ublue-os:staging
+        packages:
+          - fwupd
+      - from-repo: copr:copr.fedorainfracloud.org:bazzite-org:bazzite
+        packages:
           - ibus
-
+    remove:
+      packages:
+        - firefox
+        - firefox-langpacks
+        - cosmic-store
+        - ublue-os-update-services
+  
   - type: script
     snippets:
-      - "dnf5 versionlock add ibus"
+      - "dnf5 versionlock add pipewire pipewire-alsa pipewire-gstreamer pipewire-jack-audio-connection-kit pipewire-jack-audio-connection-kit-libs pipewire-libs pipewire-plugin-libcamera pipewire-pulseaudio pipewire-utils wireplumber wireplumber-libs bluez bluez-cups bluez-libs bluez-obexd xorg-x11-server-Xwayland switcheroo-control mesa-dri-drivers mesa-filesystem mesa-libEGL mesa-libGL mesa-libgbm mesa-va-drivers mesa-vulkan-drivers fwupd fwupd-plugin-flashrom fwupd-plugin-modem-manager fwupd-plugin-uefi-capsule-data ibus"
+      - "sed -i 's@/usr/bin/steam@/usr/bin/cosmium-steam@g' /usr/share/applications/steam.desktop"
       - "mkdir -p /etc/skel/.config/autostart"
       - "cp /usr/share/applications/steam.desktop /etc/skel/.config/autostart/steam.desktop"
-      - "sed -i 's@/usr/bin/steam@/usr/bin/cosmium-steam -silent@g' /etc/skel/.config/autostart/steam.desktop"
+      - "sed -i 's@cosmium-steam@cosmium-steam -silent@g' /etc/skel/.config/autostart/steam.desktop"
 
   - type: brew
     auto-update: false # we'll use uupd for this

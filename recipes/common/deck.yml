@@ -39,6 +39,7 @@ modules:
     remove:
       packages:
         - jupiter-sd-mounting-btrfs # so it won't conflict with jupiter-hw-support-btrfs
+        - rpmfusion-free-release
     replace:
       - from-repo: copr:copr.fedorainfracloud.org:bazzite-org:bazzite
         packages:
