@@ -24,5 +24,5 @@ imageref="${imageref##*://}"
 imageref="${imageref%%:*}"
 
 # Include nvidia-gpu-firmware package.
-#dnf install -yq nvidia-gpu-firmware || :
+dnf install -yq nvidia-gpu-firmware || :
 dnf clean all -yq

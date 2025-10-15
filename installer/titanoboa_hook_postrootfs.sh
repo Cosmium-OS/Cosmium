@@ -63,6 +63,9 @@ EOF
 
 echo "Cosmium release $VERSION_ID ($VERSION_CODENAME)" >/etc/system-release
 
+sed -i 's/ANACONDA_PRODUCTVERSION=.*/ANACONDA_PRODUCTVERSION=""/' /usr/{,s}bin/liveinst || true
+desktop-file-edit --set-key=Icon --set-value=steam-gaming-return /usr/share/applications/liveinst.desktop
+
 # Get Artwork
 #git clone --depth 1 --quiet https://github.com/Cosmium-OS/Cosmium.git /root/packages
 #case "${PRETTY_NAME,,}" in
@@ -140,7 +143,6 @@ ostreecontainer --url=$imageref:$imagetag --transport=containers-storage --no-si
 %include /usr/share/anaconda/post-scripts/install-flatpaks.ks
 #%include /usr/share/anaconda/post-scripts/secureboot-enroll-key.ks
 #%include /usr/share/anaconda/post-scripts/secureboot-docs.ks
-
 EOF
 
 # Signed Images
@@ -261,9 +263,9 @@ yad --center \
     --on-top \
     --text-align=center \
     --title="Welcome" \
-    --text="\nWelcome to the Live ISO for Cosmium\!\n\nThe Live ISO is designed for installation and troubleshooting.\nBecause of this, it is <b>not capable of playing games.</b>\n\nPlease do not use it for benchmarks as it\ndoes not represent the installed experience.\n\nClick on <b>'Install'</b> to begin installation process now.\n\nYou can always start the installer by\nopening 'Install to Hard Drive' application.\n" \
-    --button="Install":1 \
-    --button="Exit":0 \
+    --text="\nWelcome to the Live ISO for Cosmium\!\n\nThe Live ISO is designed for installation and troubleshooting.\nBecause of this, it is <b>not capable of playing games.</b>\n\nPlease do not use it for benchmarks as it\ndoes not represent the installed experience.\n\nClick on <b>'Install Cosmium'</b> to begin installation process now.\n\nYou can always start the installer by\nopening 'Install to Hard Drive' application.\n" \
+    --button="Install Cosmium":1 \
+    --button="Not now":0 \
 
 [[ $? -eq 1 ]] && liveinst && exit 0
 [[ $? -eq 0 ]] && exit 0

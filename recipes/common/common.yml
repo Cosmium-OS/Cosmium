@@ -1,4 +1,19 @@
 modules:
+  - type: copy
+    from: ghcr.io/ublue-os/akmods:bazzite-42-x86_64
+    src: /rpms
+    dest: /tmp/akmods-rpms
+
+  - type: copy
+    from: ghcr.io/ublue-os/akmods:bazzite-42-x86_64
+    src: /kernel-rpms
+    dest: /tmp/kernel-rpms
+
+  - type: copy
+    from: ghcr.io/ublue-os/akmods-extra:bazzite-42-x86_64
+    src: /rpms
+    dest: /tmp/akmods-extra-rpms
+
   - type: script
     scripts:
       - bazzite-kernel.sh

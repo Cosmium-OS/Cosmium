@@ -6,7 +6,7 @@ Note: to test it out on QEMU/Virt-manager, switch display input from Virtio to Q
 
 Latest Live ISO builds:
 - **Stable**: https://github.com/Cosmium-OS/Cosmium/actions/workflows/build-iso-live.yml?query=is%3Asuccess
-- **Testing** (even more updates than stable): https://github.com/Cosmium-OS/Cosmium/actions/workflows/build-iso-live-testing.yml?query=is%3Asuccess
+- **Testing**: https://github.com/Cosmium-OS/Cosmium/actions/workflows/build-iso-live-testing.yml?query=is%3Asuccess
 
 Grab the latest successful artifact for either Desktop or Gaming Handheld Edition (`cosmium` or `cosmium-deck`). To download an artifact without logging in to GitHub, you can replace `github.com` to `nightly.link` in URL. No matter for how long those ISOs wasn't updated, you can still perform an update by running `sudo bootc update` no matter what. New builds would be triggered when it is appropriate to do so (like changing branding, new flatpak apps, fixes to Live ISO environment, etc). We're using Universal Blue's [titanoboa](https://github.com/ublue-os/titanoboa) to make this happen :).
 
@@ -22,9 +22,9 @@ TODO:
 - [ ] Switch to Anaconda WebUI when it is stable enough
 - [ ] Add more third-party themes to the system and maybe even widgets
 - [x] Switch to own underlying image of Fedora COSMIC Atomic ~~when Universal Blue will [deprecated it](https://github.com/ublue-os/main/issues/927)~~ ([`cosmic-atomic-custom`](https://github.com/Cosmium-OS/cosmic-atomic-custom), do it like Winblues does)
-- [ ] Add Nvidia-open variants (can be done in cosmic-atomic-custom for now)
+- [ ] Add Nvidia-open variants
 - [ ] Do a proper branding
-- [ ] Figure out secure boot and kernel signing
-- [ ] Turn off compiling akmods for no reason
+- [x] ~~Figure out secure boot and kernel signing~~
+- [ ] Turn off compiling akmods for no reason in Live ISO env
 
-Thanks to https://github.com/askpng/solarpowered for providing some hack for installing Bazzite kernel!
+Thanks to https://github.com/askpng/solarpowered for providing some hack that was previously used for installing Bazzite kernel!
