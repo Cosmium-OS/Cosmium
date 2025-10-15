@@ -22,7 +22,9 @@ jobs:
       matrix:
         image_name:
           - cosmium
+          - cosmium-nvidia
           - cosmium-deck
+          - cosmium-deck-nvidia
         major_version: [41]
     steps:
       # taken from secureblue, might speedup maximizing build disk space!

@@ -24,7 +24,9 @@ jobs:
       matrix:
         image_name:
           - cosmium
+          - cosmium-nvidia
           - cosmium-deck
+          - cosmium-deck-nvidia
     steps:
       # taken from secureblue, might speedup maximizing build disk space!
       # https://github.com/secureblue/secureblue/blob/aad24ddb05fe8b390919beb7f536d0b749f7244b/.github/workflows/build-one-recipe.yml#L44-L50 

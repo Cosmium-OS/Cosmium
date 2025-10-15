@@ -18,6 +18,10 @@ imageref="$(podman images --format '{{ index .Names 0 }}\n' 'cosmium*' | head -1
 imageref="${imageref##*://}"
 imageref="${imageref%%:*}"
 imagetag="$(podman images --format '{{ .Tag }}\n' "$imageref" | head -1)"
+sbkey='https://github.com/ublue-os/akmods/raw/main/certs/public_key.der'
+SECUREBOOT_KEY="/usr/share/ublue-os/sb_pubkey.der"
+SECUREBOOT_DOC_URL="https://docs.bazzite.gg/sb"
+SECUREBOOT_DOC_URL_QR="/usr/share/ublue-os/secure_boot_qr.png"
 
 # Cosmium anaconda profile
 : ${VARIANT_ID:?}
@@ -77,8 +81,8 @@ desktop-file-edit --set-key=Icon --set-value=steam-gaming-return /usr/share/appl
 #rm -rf /root/packages
 
 # Secureboot Key Fetch
-#mkdir -p /usr/share/ublue-os
-#curl -Lo /usr/share/ublue-os/sb_pubkey.der "$sbkey"
+mkdir -p /usr/share/ublue-os
+curl -Lo /usr/share/ublue-os/sb_pubkey.der "$sbkey"
 
 # Default Kickstart
 cat <<EOF >>/usr/share/anaconda/interactive-defaults.ks
@@ -141,8 +145,8 @@ ostreecontainer --url=$imageref:$imagetag --transport=containers-storage --no-si
 %include /usr/share/anaconda/post-scripts/install-configure-upgrade.ks
 %include /usr/share/anaconda/post-scripts/disable-fedora-flatpak.ks
 %include /usr/share/anaconda/post-scripts/install-flatpaks.ks
-#%include /usr/share/anaconda/post-scripts/secureboot-enroll-key.ks
-#%include /usr/share/anaconda/post-scripts/secureboot-docs.ks
+%include /usr/share/anaconda/post-scripts/secureboot-enroll-key.ks
+%include /usr/share/anaconda/post-scripts/secureboot-docs.ks
 EOF
 
 # Signed Images
@@ -153,46 +157,46 @@ bootc switch --mutate-in-place --enforce-container-sigpolicy --transport registr
 EOF
 
 # Enroll Secureboot Key
-#cat <<EOF >>/usr/share/anaconda/post-scripts/secureboot-enroll-key.ks
-#%post --erroronfail --nochroot --log=/tmp/anacoda_custom_logs/secureboot-enroll-key.log
-#set -oue pipefail
+cat <<EOF >>/usr/share/anaconda/post-scripts/secureboot-enroll-key.ks
+%post --erroronfail --nochroot --log=/tmp/anacoda_custom_logs/secureboot-enroll-key.log
+set -oue pipefail
 
-#readonly ENROLLMENT_PASSWORD="universalblue"
-#readonly SECUREBOOT_KEY="$SECUREBOOT_KEY"
+readonly ENROLLMENT_PASSWORD="universalblue"
+readonly SECUREBOOT_KEY="$SECUREBOOT_KEY"
 
-#if [[ ! -d "/sys/firmware/efi" ]]; then
-#	echo "EFI mode not detected. Skipping key enrollment."
-#	exit 0
-#fi
+if [[ ! -d "/sys/firmware/efi" ]]; then
+	echo "EFI mode not detected. Skipping key enrollment."
+    exit 0
+fi
 
-#if [[ ! -f "\$SECUREBOOT_KEY" ]]; then
-#	echo "Secure boot key not provided: \$SECUREBOOT_KEY"
-#	exit 0
-#fi
+if [[ ! -f "\$SECUREBOOT_KEY" ]]; then
+	echo "Secure boot key not provided: \$SECUREBOOT_KEY"
+	exit 0
+fi
 
-#SYS_ID="\$(cat /sys/devices/virtual/dmi/id/product_name)"
-#if [[ ":Jupiter:Galileo:" =~ ":\$SYS_ID:" ]]; then
-#	echo "Steam Deck hardware detected. Skipping key enrollment."
-#	exit 0
-#fi
+SYS_ID="\$(cat /sys/devices/virtual/dmi/id/product_name)"
+if [[ ":Jupiter:Galileo:" =~ ":\$SYS_ID:" ]]; then
+	echo "Steam Deck hardware detected. Skipping key enrollment."
+	exit 0
+fi
 
-#mokutil --timeout -1 || :
-#echo -e "\$ENROLLMENT_PASSWORD\n\$ENROLLMENT_PASSWORD" | mokutil --import "\$SECUREBOOT_KEY" || :
-#%end
-#EOF
+mokutil --timeout -1 || :
+echo -e "\$ENROLLMENT_PASSWORD\n\$ENROLLMENT_PASSWORD" | mokutil --import "\$SECUREBOOT_KEY" || :
+%end
+EOF
 
-#cat <<EOF >>/usr/share/anaconda/post-scripts/secureboot-docs.ks
-#%post --nochroot --log=/tmp/anacoda_custom_logs/secureboot-docs.log
-#SECUREBOOT_KEY="$SECUREBOOT_KEY"
-#SECUREBOOT_DOC_URL="$SECUREBOOT_DOC_URL"
-#SECUREBOOT_DOC_URL_QR="$SECUREBOOT_DOC_URL_QR"
+cat <<EOF >>/usr/share/anaconda/post-scripts/secureboot-docs.ks
+%post --nochroot --log=/tmp/anacoda_custom_logs/secureboot-docs.log
+SECUREBOOT_KEY="$SECUREBOOT_KEY"
+SECUREBOOT_DOC_URL="$SECUREBOOT_DOC_URL"
+SECUREBOOT_DOC_URL_QR="$SECUREBOOT_DOC_URL_QR"
 
-#LC_ALL=C mokutil -t "\$SECUREBOOT_KEY" | grep -q "is already in the enrollment request" && \
-#    run0 --user=liveuser yad --timeout=0 --on-top --button=Ok:0 --image="\$SECUREBOOT_DOC_URL_QR" --text="<b>Secure Boot Key added:</b>\nPlease check the documentation to finish enrolling the key\n\$SECUREBOOT_DOC_URL"
-#%end
-#EOF
+LC_ALL=C mokutil -t "\$SECUREBOOT_KEY" | grep -q "is already in the enrollment request" && \
+    run0 --user=liveuser yad --timeout=0 --on-top --button=Ok:0 --image="\$SECUREBOOT_DOC_URL_QR" --text="<b>Secure Boot Key added:</b>\nPlease check the documentation to finish enrolling the key\n\$SECUREBOOT_DOC_URL"
+%end
+EOF
 
-#qrencode -o "$SECUREBOOT_DOC_URL_QR" "$SECUREBOOT_DOC_URL"
+qrencode -o "$SECUREBOOT_DOC_URL_QR" "$SECUREBOOT_DOC_URL"
 
 # Install Flatpaks
 cat <<'EOF' >>/usr/share/anaconda/post-scripts/install-flatpaks.ks
@@ -255,6 +259,16 @@ Exec=/usr/bin/on_gui_login.sh
 Icon=application-x-shellscript
 Type=Application
 EOF
+
+# Warn the user about non functional Nvidia drivers
+if [[ $imageref == *-nvidia* ]]; then
+    cat >>/usr/bin/on_gui_login.sh <<'EOF'
+{ yad --title="Warning" --text="$(</dev/stdin)" || true; } <<'WARNINGEOF'
+Nvidia drivers might not be functional on live isos.
+Please do not use them in benchmarks.
+WARNINGEOF
+EOF
+fi
 
 # Open a welcome window with opening live installer
 cat >>/usr/bin/on_gui_login.sh <<'EOF'

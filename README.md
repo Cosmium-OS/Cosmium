@@ -22,7 +22,7 @@ TODO:
 - [ ] Switch to Anaconda WebUI when it is stable enough
 - [ ] Add more third-party themes to the system and maybe even widgets
 - [x] Switch to own underlying image of Fedora COSMIC Atomic ~~when Universal Blue will [deprecated it](https://github.com/ublue-os/main/issues/927)~~ ([`cosmic-atomic-custom`](https://github.com/Cosmium-OS/cosmic-atomic-custom), do it like Winblues does)
-- [ ] Add Nvidia-open variants
+- [x] Add Nvidia-open variants
 - [ ] Do a proper branding
 - [x] ~~Figure out secure boot and kernel signing~~
 - [ ] Turn off compiling akmods for no reason in Live ISO env
