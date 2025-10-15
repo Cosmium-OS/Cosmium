@@ -11,6 +11,7 @@ modules:
       ID_LIKE: fedora
       NAME: Cosmium
       PRETTY_NAME: Cosmium
+      DEFAULT_HOSTNAME: cosmium
 
   - type: systemd
     system:

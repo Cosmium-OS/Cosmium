@@ -65,6 +65,10 @@ modules:
         - mangohud.i686
         - libbluray-utils
         - mesa-va-drivers.i686
+        - duperemove
+        - cpulimit
+        - sqlite
+        - btrfs-assistant
     replace:
       - from-repo: copr:copr.fedorainfracloud.org:bazzite-org:bazzite
         packages:
