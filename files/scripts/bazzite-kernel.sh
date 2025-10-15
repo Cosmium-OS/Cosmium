@@ -39,6 +39,10 @@ curl --retry 5 -L https://copr.fedorainfracloud.org/coprs/ublue-os/akmods/repo/f
 curl --retry 5 -L https://copr.fedorainfracloud.org/coprs/hikariknight/looking-glass-kvmfr/repo/fedora-$(rpm -E %fedora)/hikariknight-looking-glass-kvmfr-fedora-$(rpm -E %fedora).repo -o /etc/yum.repos.d/_copr_hikariknight-looking-glass-kvmfr.repo
 curl --retry 5 -L https://copr.fedorainfracloud.org/coprs/rok/cdemu/repo/fedora-$(rpm -E %fedora)/rok-cdemu-fedora-$(rpm -E %fedora).repo -o /etc/yum.repos.d/_copr_rok-cdemu.repo
 
+rm -rf /var/tmp
+mkdir -p /var/tmp
+chmod 1777 /var/tmp
+
 echo 'Installing extra akmod RPMs'
 dnf5 -y install \
     /tmp/akmods-rpms/kmods/*kvmfr*.rpm \
