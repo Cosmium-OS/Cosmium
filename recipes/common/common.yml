@@ -14,17 +14,20 @@ modules:
     src: /rpms
     dest: /tmp/akmods-extra-rpms
 
+  - type: script # adding terra before installing kernel and akmods
+    snippets:
+      - "dnf5 -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release{,-extras}"
+      - "dnf5 -y config-manager setopt '*terra*'.priority=3 '*terra*'.exclude='nerd-fonts topgrade steam'"
+      - "dnf5 -y config-manager setopt 'terra-mesa'.enabled=true"
+      - "dnf5 -y config-manager setopt 'terra-nvidia'.enabled=false"
+
   - type: script
     scripts:
       - bazzite-kernel.sh
     snippets:
-      - "dnf5 -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release{,-extras}"
       - "dnf5 -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm"
       - "dnf5 -y config-manager setopt '*fedora*'.exclude='mesa-* steam'"
       - "dnf5 -y config-manager setopt '*staging*'.exclude='mesa*'"
-      - "dnf5 -y config-manager setopt '*terra*'.priority=3 '*terra*'.exclude='nerd-fonts topgrade steam'"
-      - "dnf5 -y config-manager setopt 'terra-mesa'.enabled=true"
-      - "dnf5 -y config-manager setopt 'terra-nvidia'.enabled=false"
       - "dnf5 -y config-manager setopt '*rpmfusion*'.priority=5 '*rpmfusion*'.exclude='mesa-*'"
       - "dnf5 -y install libaacs libbdplus"
 

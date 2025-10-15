@@ -34,6 +34,11 @@ dnf5 -y install \
 echo 'Locking kernel version'
 dnf5 versionlock add kernel kernel-devel kernel-devel-matched kernel-core kernel-modules kernel-modules-core kernel-modules-extra kernel-tools kernel-tools-libs
 
+echo 'Downloading akmods COPR repo files'
+curl --retry 5 -L https://copr.fedorainfracloud.org/coprs/ublue-os/akmods/repo/fedora-$(rpm -E %fedora)/ublue-os-akmods-fedora-$(rpm -E %fedora).repo -o /etc/yum.repos.d/_copr_ublue-os-akmods.repo
+curl --retry 5 -L https://copr.fedorainfracloud.org/coprs/hikariknight/looking-glass-kvmfr/repo/fedora-$(rpm -E %fedora)/hikariknight-looking-glass-kvmfr-fedora-$(rpm -E %fedora).repo -o /etc/yum.repos.d/_copr_hikariknight-looking-glass-kvmfr.repo
+curl --retry 5 -L https://copr.fedorainfracloud.org/coprs/rok/cdemu/repo/fedora-$(rpm -E %fedora)/rok-cdemu-fedora-$(rpm -E %fedora).repo -o /etc/yum.repos.d/_copr_rok-cdemu.repo
+
 echo 'Installing extra akmod RPMs'
 dnf5 -y install \
     /tmp/akmods-rpms/kmods/*kvmfr*.rpm \
@@ -51,3 +56,8 @@ dnf5 -y install \
     /tmp/akmods-extra-rpms/kmods/*ayn-platform*.rpm \
     /tmp/akmods-extra-rpms/kmods/*bmi260*.rpm \
     /tmp/akmods-extra-rpms/kmods/*ryzen-smu*.rpm
+
+echo 'Removing akmods COPR repo files'
+rm /etc/yum.repos.d/_copr_ublue-os-akmods.repo
+rm /etc/yum.repos.d/_copr_hikariknight-looking-glass-kvmfr.repo
+rm /etc/yum.repos.d/_copr_rok-cdemu.repo
