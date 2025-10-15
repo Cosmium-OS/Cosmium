@@ -3,6 +3,9 @@
 
 DECK_OPTION=""
 
+# Nvidia crash fix
+export __GL_CONSTANT_FRAME_RATE_HINT=3
+
 export COSMIC_DISABLE_DIRECT_SCANOUT=1
 
 if [ ! -d $HOME/.local/share/Steam ]; then
@@ -22,6 +25,17 @@ if [[ ! -f "$DECK_OVERRIDE_FLAG" ]]; then
 else
     DECK_OPTION=""
 fi
+
+switcheroo_state="$(switcherooctl list)"
+
+# If we're running this on a dGPU in a multi-gpu AMD/Intel system, apply a workaround for the blank Steam window bug
+if [[ $(echo "${switcheroo_state}" | grep -o 'Device:' | wc -l) -gt 1 ]]; then
+  # TODO: Check if -system-composer is needed with nvidia >=555 driver
+  if ! grep -Pq 'Name:\s+NVIDIA' <<< "$switcheroo_state"; then
+    DGPU_OPTION="-system-composer"
+  fi
+fi
+unset -v switcheroo_state
 
 if [[ "$XDG_SESSION_TYPE" == "wayland" ]]; then
   # https://github.com/Supreeeme/extest
