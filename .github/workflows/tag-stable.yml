@@ -1,0 +1,56 @@
+name: Tag latest image as stable
+permissions: {}
+on:
+  workflow_call:
+    inputs:
+      image:
+        required: true
+        type: string
+jobs:
+  tag-stable:
+    name: Tag latest image as stable
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    steps:
+      # taken from secureblue, might speedup maximizing build disk space!
+      # https://github.com/secureblue/secureblue/blob/aad24ddb05fe8b390919beb7f536d0b749f7244b/.github/workflows/build-one-recipe.yml#L44-L50 
+      - name: Optimize build times
+        shell: bash
+        run: |
+          echo 'set man-db/auto-update false' | sudo debconf-communicate
+          sudo dpkg-reconfigure man-db
+          sudo rm -f /var/lib/man-db/auto-update
+          sudo sed -i 's/^update_initramfs=.*/update_initramfs=no/' /etc/initramfs-tools/update-initramfs.conf
+
+      # faster alternative method for maximizing build disk space, thanks secureblue!
+      # https://github.com/secureblue/secureblue/blob/aad24ddb05fe8b390919beb7f536d0b749f7244b/.github/workflows/build-one-recipe.yml#L52
+      - name: Free disk space
+        shell: bash
+        run: |
+          sudo rm -rf /usr/share/dotnet || true
+          sudo rm -rf /opt/ghc || true
+          sudo rm -rf /usr/local/.ghcup || true
+          sudo docker image prune --all --force || true
+          sudo swapoff -a || true
+          sudo rm -f /mnt/swapfile || true
+      
+      - name: Login to GitHub Container Registry
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo $GITHUB_TOKEN | docker login ghcr.io -u cosmium-os --password-stdin
+      
+      - name: Download custom image and tag as stable
+        env:
+          IMAGE: ${{ inputs.image }}
+        run: |
+          docker pull ghcr.io/cosmium-os/${IMAGE}:latest
+          docker tag ghcr.io/cosmium-os/${IMAGE}:latest ghcr.io/cosmium-os/${IMAGE}:stable
+          docker push ghcr.io/cosmium-os/${IMAGE}:stable
+      
+      - name: Log out of GitHub Container Registry
+        run: |
+          docker logout ghcr.io

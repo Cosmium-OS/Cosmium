@@ -51,7 +51,7 @@ jobs:
         id: generate-tag
         shell: bash
         run: |
-          TAG="latest"
+          TAG="stable"
 
           echo "tag=${TAG}" >> $GITHUB_OUTPUT
 
