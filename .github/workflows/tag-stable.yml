@@ -41,16 +41,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo $GITHUB_TOKEN | docker login ghcr.io -u cosmium-os --password-stdin
+          echo $GITHUB_TOKEN | podman login -u cosmium-os --password-stdin ghcr.io
       
-      - name: Download custom image and tag as stable
+      - name: Copy custom image and tag it as stable
         env:
           IMAGE: ${{ inputs.image }}
         run: |
-          docker pull ghcr.io/cosmium-os/${IMAGE}:latest
-          docker tag ghcr.io/cosmium-os/${IMAGE}:latest ghcr.io/cosmium-os/${IMAGE}:stable
-          docker push ghcr.io/cosmium-os/${IMAGE}:stable
+          skopeo copy docker://ghcr.io/cosmium-os/${IMAGE}:latest docker://ghcr.io/cosmium-os/${IMAGE}:stable
       
       - name: Log out of GitHub Container Registry
         run: |
-          docker logout ghcr.io
+          podman logout ghcr.io
