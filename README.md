@@ -1,3 +1,7 @@
+# Deprecated.
+
+It was a cool experiment with learning both `image-template`'s and BlueBuild's aspects while doing a full blown atomic system with [Steam Gaming Mode](https://docs.bazzite.gg/Handheld_and_HTPC_edition/Steam_Gaming_Mode/#what-is-steam-gaming-mode). I'm looking forward into contributing to other system based on bootc referring to my experience. Reach out to me if you want to maintain this system: https://jill.rip/contact
+
 # Cosmium [WIP]
 
 ![Screenshot of Live ISO environment of Cosmium showing an opened window of Examine app and Welcome dialog](.github/imgs/screenshot-about.png)
